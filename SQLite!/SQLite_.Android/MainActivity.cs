@@ -20,7 +20,20 @@ namespace SQLite_.Droid
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
-            LoadApplication(new App());
+
+            //指定したファイルのパスを取得します。
+            var dbPath = GetLocalFilePath("sqlitetest.db3");
+
+
+            //この段階ではまだエラーになります。
+            LoadApplication(new App(dbPath));
+        }
+
+        public static string GetLocalFilePath(string filename)
+        {
+            //指定されたファイルのパスを取得します。なければ作成してそのパスを返却します
+            var path = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+            return System.IO.Path.Combine(path, filename);
         }
     }
 }
